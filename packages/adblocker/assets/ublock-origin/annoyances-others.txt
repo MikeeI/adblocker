@@ -12,8 +12,6 @@ pelispedia.*##+js(aopw, document.oncontextmenu)
 pelispedia.*##+js(ra, oncontextmenu)
 cine.to##+js(aopr, oncontextmenu)
 desbloqueador.*##+js(aopr, document.oncontextmenu)
-megapastes.com##+js(aopr, document.oncontextmenu)
-megapastes.com##+js(aopr, document.onselectstart)
 ! https://github.com/uBlockOrigin/uAssets/issues/1453
 s0urce.io##+js(aeld, %2F%5E(contextmenu%7Ccopy)%24%2F)
 ! https://github.com/uBlockOrigin/uAssets/issues/3620
@@ -152,7 +150,7 @@ hoyolab.com##+js(aeld, contextmenu, , elements, img%5Bno-copy%3D%22true%22%5D)
 hoyolab.com##+js(aeld, contextmenu, preventDefault, elements, .viewer-container)
 hoyolab.com##img.viewer-move:style(pointer-events: auto !important; z-index: 100 !important;)
 ! https://github.com/uBlockOrigin/uAssets/issues/32608#issuecomment-4621674836
-jimpenopisonline.online##+js(aeld, contextmenu, preventDefault)
+ntv.cx>>,ntvs.cx>>##+js(aeld, contextmenu, preventDefault)
 ! https://github.com/uBlockOrigin/uAssets/issues/33246
 prpm.dbp.gov.my##+js(set, document.onmousedown, trueFunc)
 ! https://github.com/uBlockOrigin/uAssets/issues/33664
@@ -198,6 +196,8 @@ zgbk.com##.detail .detail-con:not(.copycontent) .art-content p:style(pointer-eve
 hk01.com##+js(trusted-replace-argument, String.prototype.includes, 0, , condition, preview-cms)
 ! https://github.com/uBlockOrigin/uAssets/issues/34089
 ||tvzonehd.com/anti-copy.js
+! https://github.com/uBlockOrigin/uAssets/pull/34124
+camere-live.ro##+js(rmnt, script, 'contextmenu')
 ! END: Anti copy, right-click etc.
 ! START: Anti-adblock
 ! https://github.com/uBlockOrigin/uAssets/issues/2185

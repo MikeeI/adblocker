@@ -2792,5 +2792,9 @@ $uritransform=/#Echobox=[\d]{10}$//,to=iltalehti.fi|hs.fi
 ||s1.hdslb.com/bfs/static/jinkela/video/video.$script,replace=/vd_source:this\.vdSource/vd_source:undefined/,domain=bilibili.com
 ! https://github.com/uBlockOrigin/uAssets/issues/34043
 ||nuviatoon.com/nuvia-api/analytics/
+! https://github.com/uBlockOrigin/uAssets/issues/32911
+||stats.index.hr^
+||index.hr/tracking-beacon
+||index.hr/api/Stats/
 ! Merge in resource-abuse.txt
 !#include resource-abuse.txt
