@@ -8,6 +8,8 @@ Optimize decisions for our product's behavior, performance, reliability, and mai
 Do not prepare, propose, publish, or track upstream contributions, pull requests, issues, or patches.
 Use Ghostery upstream only as a read-only provenance, comparison, and intentional-sync source.
 Keep this as an autonomous fork whose changes belong to us and our product.
+CI and GitHub Actions are prohibited; run builds, tests, provenance checks, and releases manually.
+Do not add or enable `.github/workflows` or any other hosted CI configuration.
 Expect to understand and adapt inherited code instead of preserving upstream alignment.
 
 ## Project Overview
