@@ -2,21 +2,22 @@
 
 ## Repository Ownership & Context
 
-This directory is our independent fork of the upstream `ghostery/adblocker` project.
-We do not own the upstream repo and will not submit upstream fixes or pull requests.
-We keep this as our own autonomous fork; every change here is local to us and our adblocker.
-We consume and may adapt this codebase for our `project-product-adblocker-ghostery` extension.
-Treat this as a researched and adapted dependency, not as a repo we reconcile with upstream.
-Expect to understand and possibly adapt code rather than assume we hold all of it.
-Build a working model of the architecture while we review and decide how to approach it.
+This directory is our independent fork of Ghostery's `adblocker` project.
+All implementation work must improve `project-product-adblocker-ghostery` or support its product research.
+Optimize decisions for our product's behavior, performance, reliability, and maintainability.
+Do not prepare, propose, publish, or track upstream contributions, pull requests, issues, or patches.
+Use Ghostery upstream only as a read-only provenance, comparison, and intentional-sync source.
+Keep this as an autonomous fork whose changes belong to us and our product.
+Expect to understand and adapt inherited code instead of preserving upstream alignment.
 
 ## Project Overview
 
 The Ghostery adblocker is a JavaScript/TypeScript library for blocking ads, trackers, and annoyances in the browser.
 It is compatible with uBlock Origin and EasyList filter syntax.
 It powers Ghostery and Cliqz, and Brave uses an adapted form of its algorithm.
-The repo is a private Yarn 4 (Berry) workspaces monorepo with 13 packages under `packages/` plus a `bench/` harness.
-Lerna v10 orchestrates cross-package `build` and `lint`; releases are driven by PR labels through the `auto` tool.
+The repository is a private Yarn 4 workspace monorepo with 13 packages and a `bench/` harness.
+Lerna v10 orchestrates cross-package builds and linting.
+The inherited `auto` tooling is not our product release owner.
 License is MPL-2.0; the core package is published as `@ghostery/adblocker`.
 
 ## Codebase Overview & Orientation
@@ -61,16 +62,16 @@ Examples include `filter-matched`, `request-blocked`, and `request-redirected`.
 
 - `packages/adblocker` — core engine, filter parsing, reverse index, serialization, compression.
 - `packages/adblocker-content` — DOM feature extraction and scriptlet injection shared by content scripts.
-- `packages/adblocker-extended-selectors` — extended-CSS (`:has`, `:matches-css`, `:xpath`, `:remove`) parser/evaluator.
+- `packages/adblocker-extended-selectors` — extended-CSS parser and evaluator.
 - `packages/adblocker-webextension` — MV2/MV3 background integration (`WebExtensionBlocker`).
 - `packages/adblocker-webextension-cosmetics` — content-script cosmetics injector.
 - `packages/adblocker-puppeteer` — Puppeteer integration (`PuppeteerBlocker`).
 - `packages/adblocker-playwright` — Playwright integration (`PlaywrightBlocker`).
 - `packages/adblocker-electron` and `packages/adblocker-electron-preload` — Electron main/renderer integration.
-- `packages/*-example` — private runnable demo apps for webextension, puppeteer, playwright, electron.
-- `bench/` — micro-benchmarks (`run_benchmark.ts`) and a cross-blocker comparison harness (`bench/comparison/`).
+- `packages/*-example` — private demos for webextension, Puppeteer, Playwright, and Electron.
+- `bench/` — micro-benchmarks and a cross-blocker comparison harness.
 - `packages/adblocker/assets` — fetched real uBlock Origin, EasyList, Fanboy lists used as fixtures.
-- `packages/adblocker/tools` — codegen scripts (`generate_compression_codebooks.ts`, `auto-bump-engine-version.ts`).
+- `packages/adblocker/tools` — compression-codebook and engine-version generation scripts.
 
 ## Development Commands
 
@@ -81,17 +82,17 @@ Run everything from the repo root with `yarn` (Yarn 4; `corepack enable` first).
 - `yarn lint` — `lerna run --parallel lint` (per-package `eslint src [test|tools]`).
 - `yarn format-check` / `yarn format-fix` — Prettier over `./packages/**/*.ts`.
 - `yarn workspace @ghostery/adblocker test` — test a single package.
-- `yarn workspace @ghostery/adblocker run test:fuzz` — property tests (default 100 runs; set `FUZZ_RUNS`).
+- `yarn workspace @ghostery/adblocker run test:fuzz` — property tests controlled by `FUZZ_RUNS`.
 - `yarn workspace @ghostery/adblocker-extended-selectors run test:browser` — Playwright browser tests.
 - Requires `yarn build` first.
-- `make` (in `bench/`) — run micro-benchmarks: `node --import=tsx --expose-gc run_benchmark.ts`.
+- `make` in `bench/` — run micro-benchmarks with the repository runner.
 - `yarn generate-codebooks` (in `packages/adblocker`) — regenerate SmaZ compression codebooks.
 - This is maintenance and not part of the normal `build`.
 
 ## Code Conventions & Common Patterns
 
-Use TypeScript with strict settings and ES modules; relative imports use a `.js` extension per NodeNext resolution.
-Formatted with Prettier (printWidth 99, single quote, trailing commas, semicolons, always parentheses on arrow params).
+Use strict TypeScript and ES modules with `.js` extensions on relative imports.
+Prettier uses print width 99, single quotes, trailing commas, semicolons, and arrow-function parentheses.
 Every serializable type implements `serialize`, `getSerializedSize`, and static `deserialize` over `StaticDataView`.
 Use lazy/memoized getters for expensive derived state.
 Examples include `Request.tokens`, `NetworkFilter.id`, and bucket caches.
@@ -109,7 +110,7 @@ Do not add typechecking to the build beyond what tshy already runs; there is no 
 ## Important Files
 
 - `packages/adblocker/src/index.ts` — public API barrel for the core package.
-- `packages/adblocker/src/engine/engine.ts` — `FiltersEngine` core with parse, update, match, serialize, deserialize.
+- `packages/adblocker/src/engine/engine.ts` — core parse, update, match, serialization, and deserialization.
 - Also defines `ENGINE_VERSION`.
 - `packages/adblocker/src/request.ts` — `Request`, request-type unions, hostname hashing.
 - `packages/adblocker/src/filters/network.ts` and `filters/cosmetic.ts` — the two filter primitives.
@@ -119,15 +120,15 @@ Do not add typechecking to the build beyond what tshy already runs; there is no 
 - `packages/adblocker/src/config.ts` — `Config` load/enable flags.
 - `packages/adblocker/src/data-view.ts` — zero-copy serialization cursor.
 - `packages/adblocker/src/compression.ts` and `src/codebooks/*` — SmaZ compression and generated codebooks.
-- Root `package.json`, `lerna.json`, `tsconfig.json`, `tsconfig.project.json`, `eslint.config.js`.
+- Root tooling lives in `package.json`, `lerna.json`, TypeScript configs, and `eslint.config.js`.
 
 ## Runtime/Tooling Preferences
 
 - Runtime: Node.js 24.15.0 (pinned by `asdf` in `.tool-versions`).
-- Package manager: Yarn 4.18.0 (`packageManager` field), `nodeLinker: node-modules`, global cache disabled.
+- Package manager: Yarn 4.18.0 with `node-modules` linking and the global cache disabled.
 - Orchestration: Yarn workspaces + Lerna v10; no nx config is present in the repo.
 - Resolutions: `@remusao/counter` is overridden by a patch under `.yarn/patches/`.
-- TypeScript 6, `tsx` for running TS, `tshy` for dual ESM/CJS output, Rollup (with terser) for browser bundles.
+- Toolchain: TypeScript 6, `tsx`, `tshy`, and Rollup with terser.
 - ESLint 10 flat config in `eslint.config.js`.
 - It uses `typescript-eslint` `recommendedTypeChecked` with many strict rules relaxed.
 - Code style is enforced by Prettier and `.editorconfig` (2-space indent, LF, UTF-8).
@@ -148,5 +149,6 @@ It splits `test/unit` (mocha) and `test/e2e` (browsers) and requires `yarn build
 Real filter-list fixtures live in `packages/adblocker/assets/` and drive parsing tests and codebook generation.
 `nyc` runs with defaults and no coverage thresholds.
 `clean` wipes `coverage`, `.nyc_output`, `.tshy*`, and `.rollup.cache`.
-CI (`tests.yml`) runs build → lint → install Playwright/Puppeteer browsers → `yarn test` across Node 22/24/26 on Ubuntu.
-No commit hooks or commitlint exist; versioning is label-driven by the `auto` release tool on merge to `master`.
+Inherited CI runs build, lint, browser installation, and tests on supported Node versions.
+The inherited repository has no commit hooks or commit-message enforcement.
+Our fork releases follow the owning product's explicit release process.
