@@ -1,23 +1,29 @@
 # Repository Guidelines
 
-## Repository Ownership & Context
+## Archived Repository Ownership
 
-This directory is our independent fork of Ghostery's `adblocker` project.
-All implementation work must improve `project-product-adblocker-ghostery` or support its product research.
-Optimize decisions for our product's behavior, performance, reliability, and maintainability.
-Do not prepare, propose, publish, or track upstream contributions, pull requests, issues, or patches.
-Use Ghostery upstream only as a read-only provenance, comparison, and intentional-sync source.
-Keep this as an autonomous fork whose changes belong to us and our product.
-CI and GitHub Actions are prohibited; run builds, tests, provenance checks, and releases manually.
-Do not add or enable `.github/workflows` or any other hosted CI configuration.
-Expect to understand and adapt inherited code instead of preserving upstream alignment.
+This repository is an archived historical snapshot of AdScrubber's Ghostery `adblocker` fork.
+
+- Do not modify this repository; authoritative core ownership moved to `project-product-adblocker-ghostery`.
+- Product commit `520e0897c2fd78bb5aa01e3b7474aa3a2772404a` established the active core owner at `/root/projects/project-product-adblocker-ghostery/packages/adblocker`.
+- This archive preserves the complete 13-package source snapshot for provenance and research.
+- Only `packages/adblocker` moved into active product ownership; no other package migration is implied.
+- The imported source snapshot is `e7e8a18d65cad2333bd8041fc48592ca4ff289b4`.
+- Ghostery upstream provenance remains pinned at `ff8ed92b3648bdf49ba884b7d90c46d3dda4c366`.
+- Preserve all remotes, branches, tags, source, tests, build configuration, and generated distribution output.
+- Preserve the MPL-2.0 license and upstream attribution.
+- Do not prepare, propose, publish, or track upstream contributions, pull requests, issues, or patches.
+- Use Ghostery upstream only as a read-only provenance, comparison, and intentional-sync source.
+- CI and GitHub Actions are prohibited; builds, tests, provenance checks, and releases are run manually.
+- Do not add or enable `.github/workflows` or any other hosted CI configuration.
+- Record product-level findings in `project-product-adblocker-ghostery` instead of adding research ledgers here.
 
 ## Project Overview
 
 The Ghostery adblocker is a JavaScript/TypeScript library for blocking ads, trackers, and annoyances in the browser.
 It is compatible with uBlock Origin and EasyList filter syntax.
 It powers Ghostery and Cliqz, and Brave uses an adapted form of its algorithm.
-The repository is a private Yarn 4 workspace monorepo with 13 packages and a `bench/` harness.
+The historical snapshot is a Yarn 4 workspace monorepo with 13 packages and a `bench/` harness.
 Lerna v10 orchestrates cross-package builds and linting.
 The inherited `auto` tooling is not our product release owner.
 License is MPL-2.0; the core package is published as `@ghostery/adblocker`.
